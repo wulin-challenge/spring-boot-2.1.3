@@ -1,0 +1,4 @@
+server: 
+  context-path: /temp1
+  port: 8001
+ 
