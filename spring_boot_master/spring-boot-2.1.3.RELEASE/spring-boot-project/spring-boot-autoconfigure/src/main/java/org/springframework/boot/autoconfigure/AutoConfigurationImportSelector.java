@@ -61,6 +61,8 @@ import org.springframework.util.StringUtils;
  * {@link DeferredImportSelector} to handle {@link EnableAutoConfiguration
  * auto-configuration}. This class can also be subclassed if a custom variant of
  * {@link EnableAutoConfiguration @EnableAutoConfiguration} is needed.
+ * 
+ * <p> DeferredImportSelector用于处理自动配置。 如果需要@EnableAutoConfiguration的自定义变体，则此类也可以是子类。
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -105,9 +107,20 @@ public class AutoConfigurationImportSelector
 	/**
 	 * Return the {@link AutoConfigurationEntry} based on the {@link AnnotationMetadata}
 	 * of the importing {@link Configuration @Configuration} class.
+	 * 
+	 * <p> 基于导入的@Configuration类的AnnotationMetadata返回AutoConfigurationEntry。
+	 * 
 	 * @param autoConfigurationMetadata the auto-configuration metadata
+	 * 
+	 * <p> 自动配置元数据
+	 * 
 	 * @param annotationMetadata the annotation metadata of the configuration class
+	 * 
+	 * <p> 配置类的注解元数据
+	 * 
 	 * @return the auto-configurations that should be imported
+	 * 
+	 * <p> 应该要导入的自动配置
 	 */
 	protected AutoConfigurationEntry getAutoConfigurationEntry(
 			AutoConfigurationMetadata autoConfigurationMetadata,
@@ -144,9 +157,14 @@ public class AutoConfigurationImportSelector
 	/**
 	 * Return the appropriate {@link AnnotationAttributes} from the
 	 * {@link AnnotationMetadata}. By default this method will return attributes for
-	 * {@link #getAnnotationClass()}.
-	 * @param metadata the annotation metadata
-	 * @return annotation attributes
+	 * {@link #getAnnotationClass()}. 
+	 * 
+	 * <p> 从 {@link AnnotationMetadata}中返回适当的{@link AnnotationAttributes},
+	 * 默认情况下这个方法将为{@link #getAnnotationClass()}返回属性
+	 * 
+	 * @param metadata the annotation metadata - 注解元数据
+	 * 
+	 * @return annotation attributes 注解属性
 	 */
 	protected AnnotationAttributes getAttributes(AnnotationMetadata metadata) {
 		String name = getAnnotationClass().getName();
@@ -171,10 +189,16 @@ public class AutoConfigurationImportSelector
 	 * Return the auto-configuration class names that should be considered. By default
 	 * this method will load candidates using {@link SpringFactoriesLoader} with
 	 * {@link #getSpringFactoriesLoaderFactoryClass()}.
-	 * @param metadata the source metadata
+	 * 
+	 * <p> 应该考虑返回自动配置类的名称. 默认情况下这个方法将使用{@link SpringFactoriesLoader} 与
+	 * {@link #getSpringFactoriesLoaderFactoryClass()} 加载候选者
+	 * 
+	 * @param metadata the source metadata - 源元数据
+	 * 
 	 * @param attributes the {@link #getAttributes(AnnotationMetadata) annotation
-	 * attributes}
-	 * @return a list of candidate configurations
+	 * attributes} - 注解属性
+	 * 
+	 * @return a list of candidate configurations - 候选者配置列表
 	 */
 	protected List<String> getCandidateConfigurations(AnnotationMetadata metadata,
 			AnnotationAttributes attributes) {
@@ -226,10 +250,15 @@ public class AutoConfigurationImportSelector
 
 	/**
 	 * Return any exclusions that limit the candidate configurations.
-	 * @param metadata the source metadata
+	 * 
+	 * <p> 返回限制候选配置的任何排除项。
+	 * 
+	 * @param metadata the source metadata - 源元数据
+	 * 
 	 * @param attributes the {@link #getAttributes(AnnotationMetadata) annotation
-	 * attributes}
-	 * @return exclusions or an empty set
+	 * attributes} - 注解属性
+	 * 
+	 * @return exclusions or an empty set - 要排除的项或者一个空的set集合
 	 */
 	protected Set<String> getExclusions(AnnotationMetadata metadata,
 			AnnotationAttributes attributes) {
@@ -291,6 +320,11 @@ public class AutoConfigurationImportSelector
 				this.beanClassLoader);
 	}
 
+	/**
+	 * 删除重复的配置
+	 * @param list
+	 * @return
+	 */
 	protected final <T> List<T> removeDuplicates(List<T> list) {
 		return new ArrayList<>(new LinkedHashSet<>(list));
 	}
@@ -488,8 +522,16 @@ public class AutoConfigurationImportSelector
 		/**
 		 * Create an entry with the configurations that were contributed and their
 		 * exclusions.
+		 * 
+		 * <p> 使用提供的配置及其排除项创建条目。
+		 * 
 		 * @param configurations the configurations that should be imported
+		 * 
+		 * <p> 应导入的配置
+		 * 
 		 * @param exclusions the exclusions that were applied to the original list
+		 * 
+		 * <p> 应用于原始列表的排除项
 		 */
 		AutoConfigurationEntry(Collection<String> configurations,
 				Collection<String> exclusions) {

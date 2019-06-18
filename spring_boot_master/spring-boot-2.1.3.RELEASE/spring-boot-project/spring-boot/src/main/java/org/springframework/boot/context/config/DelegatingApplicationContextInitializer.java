@@ -34,6 +34,8 @@ import org.springframework.util.StringUtils;
 /**
  * {@link ApplicationContextInitializer} that delegates to other initializers that are
  * specified under a {@literal context.initializer.classes} environment property.
+ * 
+ * <p> {@link ApplicationContextInitializer},在一个{@literal context.initializer.classes}环境属性下它委托给其他被指定的初始化器
  *
  * @author Dave Syer
  * @author Phillip Webb
@@ -42,6 +44,7 @@ public class DelegatingApplicationContextInitializer implements
 		ApplicationContextInitializer<ConfigurableApplicationContext>, Ordered {
 
 	// NOTE: Similar to org.springframework.web.context.ContextLoader
+	//注意: 类似 org.springframework.web.context.ContextLoader
 
 	private static final String PROPERTY_NAME = "context.initializer.classes";
 

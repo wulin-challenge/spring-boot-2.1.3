@@ -25,6 +25,9 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
  * startup errors. {@link SpringBootExceptionReporter reporters} are loaded via the
  * {@link SpringFactoriesLoader} and must declare a public constructor with a single
  * {@link ConfigurableApplicationContext} parameter.
+ * 
+ * <p> 回调接口被用于支持自定义的SpringApplication启动错误报告,通过{@link SpringFactoriesLoader}并且必须声明一个公共构造器,
+ * 该构造器伴随一个单例的{@link ConfigurableApplicationContext}参数加载{@link SpringBootExceptionReporter reporters}
  *
  * @author Phillip Webb
  * @since 2.0.0
@@ -35,9 +38,15 @@ public interface SpringBootExceptionReporter {
 
 	/**
 	 * Report a startup failure to the user.
-	 * @param failure the source failure
+	 * 
+	 * <p> 向用户报告一个启动失败
+	 * 
+	 * @param failure the source failure - 故障源
+	 * 
 	 * @return {@code true} if the failure was reported or {@code false} if default
 	 * reporting should occur.
+	 * 
+	 * <p> 如果报告了失败,则返回true,如果发生默认报告,则返回false
 	 */
 	boolean reportException(Throwable failure);
 

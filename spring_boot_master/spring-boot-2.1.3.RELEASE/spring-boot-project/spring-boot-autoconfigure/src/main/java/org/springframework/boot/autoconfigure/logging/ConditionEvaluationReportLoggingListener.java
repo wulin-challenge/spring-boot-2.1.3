@@ -38,9 +38,14 @@ import org.springframework.util.Assert;
  * to the log. Reports are logged at the {@link LogLevel#DEBUG DEBUG} level. A crash
  * report triggers an info output suggesting the user runs again with debug enabled to
  * display the report.
+ * 
+ * <p> ApplicationContextInitializer，它将ConditionEvaluationReport写入日志。
+ *  报告记录在DEBUG级别。 崩溃报告触发信息输出，建议用户再次运行并启用调试以显示报告。
  * <p>
  * This initializer is not intended to be shared across multiple application context
  * instances.
+ * 
+ * <p> 此初始化程序不应在多个应用程序上下文实例之间共享。
  *
  * @author Greg Turnquist
  * @author Dave Syer

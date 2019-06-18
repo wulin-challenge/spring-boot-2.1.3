@@ -37,11 +37,18 @@ import org.springframework.util.ReflectionUtils;
 /**
  * Utility to trigger {@link FailureAnalyzer} and {@link FailureAnalysisReporter}
  * instances loaded from {@code spring.factories}.
+ * 
+ * <p> 用于触发从 {@code spring.factories} 加载的 {@link FailureAnalyzer} 和 {@link FailureAnalysisReporter}
+ * 实例
  * <p>
  * A {@code FailureAnalyzer} that requires access to the {@link BeanFactory} in order to
  * perform its analysis can implement {@code BeanFactoryAware} to have the
  * {@code BeanFactory} injected prior to {@link FailureAnalyzer#analyze(Throwable)} being
  * called.
+ * 
+ * <p> {@code FailureAnalyzer} , 需要访问{@link BeanFactory},为了执行分析{@code FailureAnalyzer},
+ * {@code FailureAnalyzer}可以实现{@code BeanFactoryAware},那么{@code BeanFactory}在{@link FailureAnalyzer#analyze(Throwable)}
+ * 调用之前被注入
  *
  * @author Andy Wilkinson
  * @author Phillip Webb

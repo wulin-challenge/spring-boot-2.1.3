@@ -37,13 +37,21 @@ import org.springframework.util.StringUtils;
  * ports that {@link WebServer} servers are actually listening on. The property
  * {@literal "local.server.port"} can be injected directly into tests using
  * {@link Value @Value} or obtained via the {@link Environment}.
- * <p>
- * If the {@link WebServerInitializedEvent} has a
+ * 
+ * <p> ApplicationContextInitializer，用于为WebServer服务器实际侦听的端口设置环境属性。 
+ * 属性"local.server.port"可以使用@Value直接注入测试，也可以通过Environment获得。
+ * 
+ *<p>  If the {@link WebServerInitializedEvent} has a
  * {@link WebServerApplicationContext#getServerNamespace() server namespace} , it will be
  * used to construct the property name. For example, the "management" actuator context
  * will have the property name {@literal "local.management.port"}.
- * <p>
- * Properties are automatically propagated up to any parent context.
+ * 
+ * <p> 如果WebServerInitializedEvent具有服务器名称空间，则它将用于构造属性名称。 例如，
+ * "管理"执行器上下文将具有属性名称"local.management.port"。
+ * 
+ * <p> Properties are automatically propagated up to any parent context.
+ * 
+ * <p> 属性会自动传播到任何父上下文。
  *
  * @author Dave Syer
  * @author Phillip Webb

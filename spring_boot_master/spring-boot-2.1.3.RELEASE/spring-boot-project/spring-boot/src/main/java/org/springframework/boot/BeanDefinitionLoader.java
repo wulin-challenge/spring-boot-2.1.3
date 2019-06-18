@@ -51,6 +51,9 @@ import org.springframework.util.StringUtils;
  * {@link XmlBeanDefinitionReader} and {@link ClassPathBeanDefinitionScanner}. See
  * {@link SpringApplication} for the types of sources that are supported.
  *
+ *<p> 从基础的源中加载bean定义,包括xml和JavaConfig.在{@link AnnotatedBeanDefinitionReader},{@link XmlBeanDefinitionReader}
+ * 和 {@link ClassPathBeanDefinitionScanner}上面充当简单门面,支持的源类型请见{@link SpringApplication}
+ * 
  * @author Phillip Webb
  * @see #setBeanNameGenerator(BeanNameGenerator)
  */
@@ -71,8 +74,14 @@ class BeanDefinitionLoader {
 	/**
 	 * Create a new {@link BeanDefinitionLoader} that will load beans into the specified
 	 * {@link BeanDefinitionRegistry}.
+	 * 
+	 * <p> 创建一个新的BeanDefinitionLoader，它将bean加载到指定的BeanDefinitionRegistry中。
+	 * 
 	 * @param registry the bean definition registry that will contain the loaded beans
-	 * @param sources the bean sources
+	 * 
+	 * <p> 包含已加载bean的bean定义注册表
+	 * 
+	 * @param sources the bean sources - bean源
 	 */
 	BeanDefinitionLoader(BeanDefinitionRegistry registry, Object... sources) {
 		Assert.notNull(registry, "Registry must not be null");
@@ -89,7 +98,10 @@ class BeanDefinitionLoader {
 
 	/**
 	 * Set the bean name generator to be used by the underlying readers and scanner.
-	 * @param beanNameGenerator the bean name generator
+	 * 
+	 * <p> 设置基础的读取器和扫描器将要使用的bean名称生成器。
+	 * 
+	 * @param beanNameGenerator the bean name generator - bean名称生成器
 	 */
 	public void setBeanNameGenerator(BeanNameGenerator beanNameGenerator) {
 		this.annotatedReader.setBeanNameGenerator(beanNameGenerator);

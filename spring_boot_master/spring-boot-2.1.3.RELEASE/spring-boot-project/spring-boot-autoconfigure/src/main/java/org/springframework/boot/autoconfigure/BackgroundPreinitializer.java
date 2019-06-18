@@ -39,10 +39,14 @@ import org.springframework.http.converter.support.AllEncompassingFormHttpMessage
 /**
  * {@link ApplicationListener} to trigger early initialization in a background thread of
  * time consuming tasks.
+ * 
+ * <p> ApplicationListener在耗时任务的后台线程中触发早期初始化。
  * <p>
  * Set the {@link #IGNORE_BACKGROUNDPREINITIALIZER_PROPERTY_NAME} system property to
  * {@code true} to disable this mechanism and let such initialization happen in the
  * foreground.
+ * 
+ * <p> 将IGNORE_BACKGROUNDPREINITIALIZER_PROPERTY_NAME系统属性设置为true以禁用此机制，并在前台进行此类初始化。
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -58,6 +62,10 @@ public class BackgroundPreinitializer
 	 * property is set to {@code true}, no pre-initialization happens and each item is
 	 * initialized in the foreground as it needs to. When the property is {@code false}
 	 * (default), pre initialization runs in a separate thread in the background.
+	 * 
+	 * <p> 指示Spring Boot如何运行预初始化的系统属性。 当属性设置为true时，不会发生预初始化，并且每个项目都在前台进行初始化。 
+	 * 当属性为false（默认）时，预初始化在后台的单独线程中运行。
+	 * 
 	 * @since 2.1.0
 	 */
 	public static final String IGNORE_BACKGROUNDPREINITIALIZER_PROPERTY_NAME = "spring.backgroundpreinitializer.ignore";

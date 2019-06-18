@@ -30,6 +30,9 @@ import org.springframework.util.StringUtils;
  * {@link ApplicationContext#getId() ApplicationContext ID}. The
  * {@code spring.application.name} property is used to create the ID. If the property is
  * not set {@code application} is used.
+ * 
+ * <p> ApplicationContextInitializer，用于设置Spring ApplicationContext ID。
+ * spring.application.name属性用于创建ID。 如果未设置该属性，则使用应用程序。
  *
  * @author Dave Syer
  * @author Andy Wilkinson
@@ -71,6 +74,8 @@ public class ContextIdApplicationContextInitializer implements
 
 	/**
 	 * The ID of a context.
+	 * 
+	 * <p> 上下文Id
 	 */
 	class ContextId {
 

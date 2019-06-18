@@ -45,7 +45,9 @@ import org.springframework.util.StringUtils;
 /**
  * {@link ApplicationContextInitializer} to report warnings for common misconfiguration
  * mistakes.
- *
+ * 
+ * <p> ApplicationContextInitializer报告常见错误配置错误的警告。
+ * 
  * @author Phillip Webb
  * @since 1.2.0
  */
@@ -71,6 +73,8 @@ public class ConfigurationWarningsApplicationContextInitializer
 
 	/**
 	 * {@link BeanDefinitionRegistryPostProcessor} to report warnings.
+	 * 
+	 * <p> BeanDefinitionRegistryPostProcessor报告警告。
 	 */
 	protected static final class ConfigurationWarningsPostProcessor
 			implements PriorityOrdered, BeanDefinitionRegistryPostProcessor {

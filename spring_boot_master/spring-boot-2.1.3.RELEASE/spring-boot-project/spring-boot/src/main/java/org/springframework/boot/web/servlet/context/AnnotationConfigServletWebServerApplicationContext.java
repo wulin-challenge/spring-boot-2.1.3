@@ -142,6 +142,8 @@ public class AnnotationConfigServletWebServerApplicationContext
 	 * <p>
 	 * Delegates given environment to underlying {@link AnnotatedBeanDefinitionReader} and
 	 * {@link ClassPathBeanDefinitionScanner} members.
+	 * 
+	 * <p> 为潜在的{@link AnnotatedBeanDefinitionReader}和{@link ClassPathBeanDefinitionScanner}成员委托给定环境
 	 */
 	@Override
 	public void setEnvironment(ConfigurableEnvironment environment) {

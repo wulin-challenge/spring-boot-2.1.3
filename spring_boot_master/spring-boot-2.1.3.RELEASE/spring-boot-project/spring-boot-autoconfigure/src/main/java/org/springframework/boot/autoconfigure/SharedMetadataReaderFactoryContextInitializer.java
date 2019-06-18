@@ -42,6 +42,9 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
  * {@link ApplicationContextInitializer} to create a shared
  * {@link CachingMetadataReaderFactory} between the
  * {@link ConfigurationClassPostProcessor} and Spring Boot.
+ * 
+ * <p> {@link ApplicationContextInitializer}在{@link ConfigurationClassPostProcessor}  和 Spring Boot之间
+ * 创建一个共享的{@link CachingMetadataReaderFactory}
  *
  * @author Phillip Webb
  * @since 1.4.0
@@ -67,6 +70,8 @@ class SharedMetadataReaderFactoryContextInitializer implements
 	 * {@link BeanDefinitionRegistryPostProcessor} to register the
 	 * {@link CachingMetadataReaderFactory} and configure the
 	 * {@link ConfigurationClassPostProcessor}.
+	 * 
+	 * <p> BeanDefinitionRegistryPostProcessor注册CachingMetadataReaderFactory并配置ConfigurationClassPostProcessor。
 	 */
 	private static class CachingMetadataReaderFactoryPostProcessor
 			implements BeanDefinitionRegistryPostProcessor, PriorityOrdered {
@@ -74,6 +79,7 @@ class SharedMetadataReaderFactoryContextInitializer implements
 		@Override
 		public int getOrder() {
 			// Must happen before the ConfigurationClassPostProcessor is created
+			// 必须在创建ConfigurationClassPostProcessor之前发生
 			return Ordered.HIGHEST_PRECEDENCE;
 		}
 

@@ -32,6 +32,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * Logs application information on startup.
+ * 
+ * <p> 在启动时记录应用程序信息。
  *
  * @author Phillip Webb
  * @author Dave Syer

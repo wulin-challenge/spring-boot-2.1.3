@@ -41,6 +41,8 @@ import org.springframework.util.StringUtils;
 /**
  * Class for storing auto-configuration packages for reference later (e.g. by JPA entity
  * scanner).
+ * 
+ * <p> 用于存储自动配置包的类,用于后期引用（例如，通过JPA实体扫描器）。
  *
  * @author Phillip Webb
  * @author Dave Syer
@@ -120,6 +122,8 @@ public abstract class AutoConfigurationPackages {
 	/**
 	 * {@link ImportBeanDefinitionRegistrar} to store the base package from the importing
 	 * configuration.
+	 * 
+	 * <p> ImportBeanDefinitionRegistrar用于存储导入配置中的基础包。
 	 */
 	static class Registrar implements ImportBeanDefinitionRegistrar, DeterminableImports {
 
