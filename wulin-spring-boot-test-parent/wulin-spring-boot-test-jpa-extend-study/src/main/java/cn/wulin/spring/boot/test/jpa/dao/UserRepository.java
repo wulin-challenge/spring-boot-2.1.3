@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User,Long>{
 	@Query("select o.id,o.age,r.id as role__id ,r.name as role__name from User o left join o.role r where o.password = ?1")
 	public List<User> findByPassword2(String password);
 	
-	@CustomQuery(value="__",nativeQuery=true)
+	@CustomQuery(value="__",customNativeQuery=true)
 	@Query(nativeQuery=true,value="select o.id,o.age,o.create_time as createTime,r.id as role__id ,r.name as role__name from jpa_user o left join jpa_role r on o.role_id = r.id where o.password = ?1")
 	public List<User> findByPassword3(String password);
 	

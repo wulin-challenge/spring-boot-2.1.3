@@ -23,7 +23,7 @@ public @interface CustomQuery {
 	/**
 	 * 自定义本地查询,true:走自定义的本地sql查询,不走jpa的通用查询
 	 */
-	boolean nativeQuery() default false;
+	boolean customNativeQuery() default false;
 	
 	/**
 	 * 当返回类型与实际返回类型不一致时是否进行数据转换

@@ -45,7 +45,7 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 		Object returnValue = null;
 		try {
 			QueryReturn queryReturn = getQueryReturn(invocation);
-			if(queryReturn.getNativeQuery()) {
+			if(queryReturn.getCustomNativeQuery()) {
 				returnValue = nativeQuery(invocation, queryReturn);
 			}else {
 				returnValue = invocation.proceed();
@@ -195,7 +195,7 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 			
 			if(customQuery != null) {
 				queryReturn.setColumnSeparator(customQuery.value());
-				queryReturn.setNativeQuery(customQuery.nativeQuery());
+				queryReturn.setCustomNativeQuery(customQuery.customNativeQuery());
 				queryReturn.setConvert(customQuery.convert());
 			}
 			

@@ -31,7 +31,7 @@ public class QueryReturn {
 	/**
 	 * 自定义本地查询
 	 */
-	private boolean nativeQuery = false;
+	private boolean customNativeQuery = false;
 	
 	/**
 	 * 当返回类型与实际返回类型不一致时是否进行数据转换,true: 进行转换,false: 不转换
@@ -70,13 +70,13 @@ public class QueryReturn {
 	public void setRepositoryInformation(RepositoryInformation repositoryInformation) {
 		this.repositoryInformation = repositoryInformation;
 	}
-
-	public boolean getNativeQuery() {
-		return nativeQuery;
+	
+	public boolean getCustomNativeQuery() {
+		return customNativeQuery;
 	}
 
-	public void setNativeQuery(boolean nativeQuery) {
-		this.nativeQuery = nativeQuery;
+	public void setCustomNativeQuery(boolean customNativeQuery) {
+		this.customNativeQuery = customNativeQuery;
 	}
 
 	public String getSql() {
