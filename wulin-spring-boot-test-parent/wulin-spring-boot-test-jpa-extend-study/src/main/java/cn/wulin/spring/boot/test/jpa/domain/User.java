@@ -27,10 +27,28 @@ public class User {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "roleId",foreignKey = @ForeignKey(name = "none",value = ConstraintMode.NO_CONSTRAINT))
 	private Role role;
+	
+	public User() {}
+	
+	public User(Long id, int age,Long roleId,String roleName) {
+		this.id = id;
+		this.age = age;
+		this.role = new Role();
+		role.setId(roleId);
+		role.setName(roleName);
+	}
+
+	public User(Long id, String name, String password) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+	}
 
 	public Long getId() {
 		return id;
 	}
+
+	
 
 	public void setId(Long id) {
 		this.id = id;
