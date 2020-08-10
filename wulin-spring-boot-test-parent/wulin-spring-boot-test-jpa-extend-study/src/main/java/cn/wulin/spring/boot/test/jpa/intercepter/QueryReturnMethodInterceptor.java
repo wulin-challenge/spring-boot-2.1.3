@@ -5,11 +5,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NonUniqueResultException;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -20,7 +22,8 @@ import org.springframework.data.repository.core.RepositoryInformation;
 
 import cn.wulin.spring.boot.test.jpa.convert.RegisterConvertUtil;
 import cn.wulin.spring.boot.test.jpa.convert.ValueTypeConvert;
-import cn.wulin.spring.boot.test.jpa.intercepter.sql.EntityHelper;
+import cn.wulin.spring.boot.test.jpa.intercepter.sql.SqlDealwithUtil;
+
 
 /**
  * 查询返回拦截器
@@ -42,6 +45,14 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
+		CustomQuery annotation = invocation.getMethod().getAnnotation(CustomQuery.class);
+		if(annotation == null) {
+			return invocation.proceed();
+		}
+		return dealwithInvoke(invocation);
+	}
+
+	private Object dealwithInvoke(MethodInvocation invocation) throws Throwable {
 		Object returnValue = null;
 		try {
 			QueryReturn queryReturn = getQueryReturn(invocation);
@@ -109,8 +120,22 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 			}
 			return list;
 		}else if(Map.class.isAssignableFrom(returnType)) {
-			
-			//TODO 预留
+			if(Collection.class.isAssignableFrom(returnValue.getClass())) {
+				Collection<?> returnValueList = (Collection<?>)returnValue;
+				if(returnValueList.size() ==0) {
+					return returnValue;
+				}
+				
+				if(returnValueList.size()>1) {
+					throw new NonUniqueResultException("result returns more than one elements");
+				}
+				
+				for (Object object : returnValueList) {
+					return dealwithSingleReturnValue(queryReturn, (Object[])object);
+				}
+			}else {
+				throw new RuntimeException("返回值处理失败!");
+			}
 		}else {
 			return dealwithSingleReturnValue(queryReturn, (Object[])returnValue);
 		}
@@ -159,9 +184,11 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 				}
 			}
 		}else if(Map.class.isAssignableFrom(returnType)) {
-			
-			//TODO 预留
-			return true;
+			if(returnValue.getClass() == queryReturn.getTargetClass()) {
+				return true;
+			}else {
+				return false;
+			}
 		}else {
 			if(returnValue.getClass() == queryReturn.getTargetClass()) {
 				return true;
@@ -190,7 +217,7 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 			if(query != null) {
 				String sql = query.value();
 				queryReturn.setSql(sql);
-				queryReturn.setColumns(EntityHelper.getAllColumns(sql));
+				queryReturn.setColumns(SqlDealwithUtil.getAllColumns(sql));
 			}
 			
 			if(customQuery != null) {
@@ -222,7 +249,7 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 			
 		}else if(Map.class.isAssignableFrom(returnType)) {
 			
-			//TODO 预留
+			queryReturn.setTargetClass(returnType);
 		}else {
 			queryReturn.setTargetClass(returnType);
 		}
@@ -237,16 +264,29 @@ public class QueryReturnMethodInterceptor implements MethodInterceptor {
 	 */
 	private Object dealwithSingleReturnValue(QueryReturn queryReturn,Object[] returnValueArray) throws Throwable{
 		try {
-			Object entity = queryReturn.getTargetClass().newInstance();
+			Class<?> targetClass = queryReturn.getTargetClass();
 			List<String> columns = queryReturn.getColumns();
 			int i = 0;
-			for (String column : columns) {
+			
+			if(Map.class.isAssignableFrom(targetClass)) {
+				Map<String,Object> row = new LinkedHashMap<String,Object>();
 				
-				String[] multiColumnArray = column.split(queryReturn.getColumnSeparator());
-				dealwithRecursionFieldValue(returnValueArray, entity, i, multiColumnArray);
-				i++;
+				for (String column : columns) {
+					row.put(column, returnValueArray[i]);
+					i++;
+				}
+				return row;
+			}else {
+				Object entity = targetClass.newInstance();
+				
+				for (String column : columns) {
+					
+					String[] multiColumnArray = column.split(queryReturn.getColumnSeparator());
+					dealwithRecursionFieldValue(returnValueArray, entity, i, multiColumnArray);
+					i++;
+				}
+				return entity;
 			}
-			return entity;
 		}catch (Throwable e) {
 			throw e;
 		}
